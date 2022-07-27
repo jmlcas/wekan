@@ -5,7 +5,7 @@ services:
   wekandb:
     image: mongo:5
     container_name: wekan-db
-    restart: always
+    restart: unless-stopped
     command: mongod --logpath /dev/null --oplogSize 128 --quiet
     networks:
       - wekan-tier
@@ -22,7 +22,7 @@ services:
     container_name: wekan-app
     security_opt:
       - seccomp:unconfined
-    restart: always
+    restart: unless-stopped
     networks:
       - wekan-tier
     ports:
@@ -31,8 +31,8 @@ services:
       - WRITABLE_PATH=/data
       - MONGO_URL=mongodb://wekandb:27017/wekan
       - ROOT_URL=http://localhost  
-      - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
-      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}   #Changeme
+      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>   #Changeme
       - WITH_API=true
       - RICHER_CARD_COMMENT_EDITOR=false
       - CARD_OPENED_WEBHOOK_ENABLED=false
