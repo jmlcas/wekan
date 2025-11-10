@@ -1,5 +1,3 @@
-version: '2'
-
 services:
 
   wekandb:
@@ -54,6 +52,5 @@ volumes:
 
 networks:
   wekan-tier:
-    driver: bridge
+    driver: bridge   
 
-    
